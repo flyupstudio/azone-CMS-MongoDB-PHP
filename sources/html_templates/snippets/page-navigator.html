@@ -1,0 +1,117 @@
+<?
+	// _debug($this->Pages);
+	// _debug($this->Pages_sz);
+?>
+
+<?
+	$showPrevNextAlways = false;
+	// $prevHrefTitle = 'Предыдущая';
+	// $nextHrefTitle = 'Следующая';
+	$prevHrefTitle = '&lt;';
+	$nextHrefTitle = '&gt;';
+	
+	/* Serj
+	$classLI = 'inline-block';
+	$classA = 'animate';
+	*/
+	// $classLI = 'table left';
+	// $classA = 'td animate';
+?>
+
+<?if(true){ /* стандартный вид, с номерами страниц */?>
+<?if($this->Pages_sz > 1){?>
+	<?if(false){ /* Serj */?>
+	<div class="pager center">
+		<ul class="inline-block relative">
+			<?if($this->FirstLast){?>
+				<?if($this->FirstHref){?><li class="first <?= $classLI?>"><a class="<?= $classA?>" href="<?= $this->FirstHref ?>">&lt;&lt;</a></li><?}?>
+			<?}?>
+			<?if($this->PrevNext){?>
+				<?if($this->PrevHref){?><li class="prev <?= $classLI?>"><a class="<?= $classA?>" href="<?= $this->PrevHref?>"><i class="fa fa-angle-left"></i></a></li><?}?>
+			<?}?>
+			<?for($i = 0; $i < $this->Pages_sz; $i++){?>
+				<?if(isset($this->Pages[$i]['href']) && $this->Pages[$i]['href']){?>
+					<?if(isset($this->Pages[$i]['title']) && $this->Pages[$i]['title']){?>
+						<li class="<?= $classLI?>"><a class="<?= $classA?>" href="<?= $this->Pages[$i]['href']?>"><?= $this->Pages[$i]['title']?></a></li>
+					<?}?>
+				<?}else{?>
+					<li class="active <?= $classLI?>"><span class="<?= $classA?>"><?= $this->Pages[$i]['title']?></span></li>
+				<?}?>
+			<?}?>
+			<?if($this->PrevNext){?>
+				<?if($this->NextHref){?><li class="next <?= $classLI?>"><a class="<?= $classA?>" href="<?= $this->NextHref?>"><i class="fa fa-angle-right"></i></a></li><?}?>
+			<?}?>
+			<?if($this->FirstLast){?>
+				<? if($this->LastHref){?><li class="last <?= $classLI?>"><a class="<?= $classA?>" href="<?= $this->LastHref ?>" >&gt;&gt;</a></li><?}?>
+			<?}?>
+		</ul>
+		<div class="clear"></div>
+	</div>
+	<?}else{?>
+		<ul class="pager">
+			<?if($this->FirstLast){?>
+				<?if($this->FirstHref){?><li class="first <?= $classLI?>"><a class="<?= $classA?>" href="<?= $this->FirstHref ?>">&lt;&lt;</a></li><?}?>
+			<?}?>
+			<?if($this->PrevNext){?>
+				<?if($this->PrevHref){?>
+					<li class="prev <?= $classLI?>"><a class="<?= $classA?>" href="<?= $this->PrevHref?>"><?= $prevHrefTitle?></a></li>
+				<?}elseif($showPrevNextAlways){?>
+					<li class="prev <?= $classLI?> disabled"><span class="<?= $classA?>"><?= $prevHrefTitle?></span></li>
+				<?}?>
+			<?}?>				
+			<?for($i = 0; $i < $this->Pages_sz; $i++){?>
+				<?if(isset($this->Pages[$i]['href']) && $this->Pages[$i]['href']){?>
+					<?if(isset($this->Pages[$i]['title']) && $this->Pages[$i]['title']){?>
+						<li class="<?= $classLI?>"><a class="<?= $classA?>" href="<?= $this->Pages[$i]['href']?>"><?= $this->Pages[$i]['title']?></a></li>
+					<?}?>
+				<?}else{?>
+					<li class="active <?= $classLI?>"><span class="<?= $classA?>"><?= $this->Pages[$i]['title']?></span></li>
+				<?}?>
+			<?}?>
+			<?if($this->PrevNext){?>
+				<?if($this->NextHref){?>
+					<li class="next <?= $classLI?>"><a class="<?= $classA?>" href="<?= $this->NextHref?>"><?= $nextHrefTitle?></a></li>
+				<?}elseif($showPrevNextAlways){?>
+					<li class="next <?= $classLI?> disabled"><span class="<?= $classA?>"><?= $nextHrefTitle?></span></li>
+				<?}?>
+			<?}?>
+			<?if($this->FirstLast){?>
+				<? if($this->LastHref){?><li class="last <?= $classLI?>"><a class="<?= $classA?>" href="<?= $this->LastHref ?>" >&gt;&gt;</a></li><?}?>
+			<?}?>
+		</ul>
+		<div class="clear"></div>
+	<?}?>
+<?}?>
+<?} // true/false?>
+
+<?if(false){ /* только prev/next, без номеров страниц */?>
+<?if($this->Pages_sz > 1){?>
+	<div class="pager">
+		<ul class="pagination">
+			<?if($this->FirstLast){?>
+				<?if($this->FirstHref){?><li><a href="<?= $this->FirstHref ?>">&lt;&lt;</a></li><?}?>
+			<?}?>
+			<?for($i = 0; $i < $this->Pages_sz; $i++){?>
+				<?if(isset($this->Pages[$i]['href']) && $this->Pages[$i]['href']){?>
+					<?if(isset($this->Pages[$i]['title']) && $this->Pages[$i]['title']){?>
+						<?/* <li><a href="<?= $this->Pages[$i]['href']?>"><?= $this->Pages[$i]['title']?></a></li> */?>
+					<?}?>
+				<?}else{?>
+					<li class="active"><span><?= $this->Pages[$i]['title']?></span></li>
+				<?}?>
+			<?}?>
+			<li class="active"><span>/</span></li>
+			<li class="active"><span><?= $this->Pages_sz?></span></li>
+			<?if($this->PrevNext){?>
+				<?if($this->PrevHref){?><li class="prev"><a href="<?= $this->PrevHref?>"><</a></li><?}?>
+			<?}?>
+			<?if($this->PrevNext){?>
+				<?if($this->NextHref){?><li class="next"><a href="<?= $this->NextHref?>">></a></li><?}?>
+			<?}?>
+			<?if($this->FirstLast){?>
+				<? if($this->LastHref){?><li><a href="<?= $this->LastHref ?>" >&gt;&gt;</a></li><?}?>
+			<?}?>
+		</ul>
+	</div>
+<?}?>
+<?} // false?>
